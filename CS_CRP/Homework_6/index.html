@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <!-- HUD -->
+    <div id="hud">
+      <div id="hud-left">
+        <span>Score: <span id="hud-score">0</span></span>
+        <span>High Score: <span id="hud-high">0</span></span>
+        <span id="hud-new-hs" class="hud-new-hs hidden">🏆 NEW HIGH SCORE!</span>
+      </div>
+      <div id="hud-right">
+        <span id="hud-lives">❤️❤️❤️</span>
+        <button id="btn-mute" title="Toggle Sound">🔊</button>
+        <button id="btn-pause">⏸ Pause</button>
+        <button id="btn-restart">🔄 Restart</button>
+      </div>
+    </div>
+
+    <!-- Game Canvas -->
+    <canvas id="game-canvas" width="600" height="500"></canvas>
+
+    <!-- Start / How to Play Overlay -->
+    <div id="start-overlay" class="overlay">
+      <div class="overlay-box start-box">
+        <h1>🎮 CATCH GAME</h1>
+        <div class="how-to-play">
+          <h2>How to Play</h2>
+          <ul>
+            <li>Move the basket with <kbd>← →</kbd>, <kbd>A</kbd> / <kbd>D</kbd>, <strong>Mouse</strong>, or <strong>Touch</strong></li>
+            <li>Catch the <span class="good-text">🍎 Fresh Fruits</span> to earn <strong>+5</strong> points</li>
+            <li>Avoid the <span class="bad-text">🤢 Rotten Fruits</span> — catching one is <strong>instant Game Over!</strong></li>
+            <li>Missing a Fresh Fruit costs you <strong>1 life</strong> — you have <strong>3 lives</strong></li>
+            <li>Press <kbd>P</kbd> to Pause / Resume</li>
+            <li>Press <kbd>M</kbd> to Mute / Unmute sounds</li>
+          </ul>
+        </div>
+        <p class="start-prompt">Use Keys, Mouse, or Touch to Start!</p>
+        <p class="start-hs-display">High Score: <span id="start-hs-val">0</span></p>
+        <div style="display:flex; justify-content:center; gap:12px; margin-top:12px; flex-wrap:wrap;">
+          <button id="btn-start-game" style="font-size:15px; font-weight:700; padding:9px 24px; background:var(--emerald); color:var(--dark-bg); border:none; border-radius:6px; cursor:pointer;">▶ Start Game</button>
+          <button id="btn-reset-hs-start" style="font-size:14px; background:#960200; color:#fff; padding:9px 20px; border:none; border-radius:6px; cursor:pointer;">🔄 Restart / Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause Overlay -->
+    <div id="pause-overlay" class="overlay hidden">
+      <div class="overlay-box">
+        <h1>PAUSED</h1>
+        <p>Press <kbd>P</kbd> or click Resume to continue</p>
+        <button id="btn-resume">▶ Resume</button>
+      </div>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="gameover-overlay" class="overlay hidden">
+      <div class="overlay-box">
+        <h1>GAME OVER</h1>
+        <p>Score: <span id="go-score">0</span></p>
+        <p>High Score: <span id="go-high">0</span></p>
+        <button id="btn-go-restart">🔄 Play Again</button>
+        <button id="btn-reset-hs">🗑 Reset High Score</button>
+      </div>
+    </div>
+
+    <!-- Mobile Touch Controls -->
+    <div id="touch-controls">
+      <button class="touch-btn" id="btn-touch-left">◀</button>
+      <button class="touch-btn" id="btn-touch-right">▶</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
