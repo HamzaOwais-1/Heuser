@@ -375,3 +375,73 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* ===== Portfolio Floating Button ===== */
+#portfolio-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  background: rgba(21, 34, 56, 0.88);
+  color: #fcd0a1;
+  border: 1.5px solid rgba(43, 89, 195, 0.5);
+  border-radius: 40px;
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(43, 89, 195, 0.15);
+  cursor: pointer;
+  transition: transform 0.25s ease, opacity 0.25s ease,
+              box-shadow 0.25s ease, background 0.25s ease;
+  opacity: 0.85;
+}
+
+#portfolio-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  opacity: 1;
+  background: rgba(21, 34, 56, 0.95);
+  border-color: rgba(43, 89, 195, 0.8);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(43, 89, 195, 0.25);
+  color: #fff;
+}
+
+#portfolio-btn:active {
+  transform: scale(1.02);
+}
+
+#portfolio-btn svg {
+  flex-shrink: 0;
+}
+
+.portfolio-label {
+  white-space: nowrap;
+}
+
+/* --- Mobile: move to bottom-left, shrink to icon-only badge --- */
+@media (max-width: 640px), (hover: none) and (pointer: coarse) {
+  #portfolio-btn {
+    right: auto;
+    left: 12px;
+    bottom: 90px;  /* sit above the touch controls bar */
+    padding: 10px;
+    border-radius: 50%;
+    min-width: 42px;
+    min-height: 42px;
+    justify-content: center;
+  }
+  .portfolio-label {
+    display: none;
+  }
+}
