@@ -233,7 +233,13 @@ body {
 }
 
 @media (max-width: 640px), (hover: none) and (pointer: coarse) {
-  #touch-controls { display: flex; width: 100%; max-width: 600px; padding: 8px 12px; }
+  #touch-controls {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    padding: 8px 12px;
+    padding-right: 80px; /* Safe space to prevent right touch button from overlapping owner button */
+  }
 }
 
 @media (max-width: 640px) {
@@ -376,72 +382,118 @@ body {
   50% { opacity: 0.4; }
 }
 
-/* ===== Portfolio Floating Button ===== */
+/* ===== Owner / Portfolio Floating Button ===== */
+#owner-btn,
 #portfolio-btn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  display: flex;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  gap: 7px;
-  padding: 10px 16px;
-  background: rgba(21, 34, 56, 0.88);
-  color: #fcd0a1;
-  border: 1.5px solid rgba(43, 89, 195, 0.5);
-  border-radius: 40px;
+  justify-content: center;
+  gap: 3px;
+  padding: 9px 14px;
+  min-width: 58px;
+  border-radius: 12px;
   text-decoration: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
+  background: linear-gradient(135deg, rgba(21, 34, 56, 0.88) 0%, rgba(13, 27, 42, 0.94) 100%);
+  border: 1.5px solid rgba(0, 242, 254, 0.35);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.4),
-    0 0 12px rgba(43, 89, 195, 0.15);
+    0 4px 18px rgba(0, 0, 0, 0.45),
+    0 0 14px rgba(0, 242, 254, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
   cursor: pointer;
-  transition: transform 0.25s ease, opacity 0.25s ease,
-              box-shadow 0.25s ease, background 0.25s ease;
-  opacity: 0.85;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              background 0.25s ease;
 }
 
-#portfolio-btn:hover {
-  transform: scale(1.08) translateY(-2px);
-  opacity: 1;
-  background: rgba(21, 34, 56, 0.95);
-  border-color: rgba(43, 89, 195, 0.8);
-  box-shadow:
-    0 6px 28px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(43, 89, 195, 0.25);
-  color: #fff;
-}
-
-#portfolio-btn:active {
-  transform: scale(1.02);
-}
-
+#owner-btn .owner-icon,
 #portfolio-btn svg {
   flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+  filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.45));
 }
 
+#owner-btn .owner-label,
 .portfolio-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  line-height: 1;
+  background: linear-gradient(135deg, #00f2fe 0%, #b388ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #00f2fe;
   white-space: nowrap;
 }
 
-/* --- Mobile: move to bottom-left, shrink to icon-only badge --- */
+/* Hover effects */
+#owner-btn:hover,
+#portfolio-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: rgba(0, 242, 254, 0.85);
+  background: linear-gradient(135deg, rgba(28, 45, 75, 0.95) 0%, rgba(18, 33, 56, 0.98) 100%);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(0, 242, 254, 0.5),
+    0 0 38px rgba(157, 78, 221, 0.35);
+}
+
+#owner-btn:hover .owner-icon,
+#portfolio-btn:hover svg {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.75));
+}
+
+/* Active / Pressed state */
+#owner-btn:active,
+#portfolio-btn:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(0, 242, 254, 0.35);
+}
+
+/* Focus outline for keyboard navigation */
+#owner-btn:focus-visible,
+#portfolio-btn:focus-visible {
+  outline: 2px solid #00f2fe;
+  outline-offset: 3px;
+}
+
+/* Mobile responsive placement */
 @media (max-width: 640px), (hover: none) and (pointer: coarse) {
+  #owner-btn,
   #portfolio-btn {
-    right: auto;
-    left: 12px;
-    bottom: 90px;  /* sit above the touch controls bar */
-    padding: 10px;
-    border-radius: 50%;
-    min-width: 42px;
-    min-height: 42px;
-    justify-content: center;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    right: max(12px, env(safe-area-inset-right, 12px));
+    padding: 7px 11px;
+    min-width: 50px;
+    border-radius: 10px;
   }
+
+  #owner-btn .owner-icon,
+  #portfolio-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #owner-btn .owner-label,
   .portfolio-label {
-    display: none;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    display: block;
   }
 }
