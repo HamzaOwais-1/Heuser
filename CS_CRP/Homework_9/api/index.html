@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stat Arena: Pokémon tug-of-war</title>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/home-files/home.css">
+<link rel="stylesheet" href="/api/assets/arena.css">
+</head>
+<body class="arena-body">
+<header class="top">
+  <a class="back" href="/">Back to home</a>
+  <h1>Stat Arena</h1>
+</header>
+
+<p class="idea" id="idea">My /api page uses PokeAPI to build a tug-of-war between two Pokémon. Visitors search for any two fighters, and each of their six base stats becomes a bar that pulls on a rope. Whoever wins a stat drags the knot toward their side, and the fighter who holds the knot after six rounds is the champion. It is unique because the numbers aren't shown as a table or list: they become a physical contest you watch and replay.</p>
+
+<section class="ring" aria-label="Arena">
+  <div class="slot a" id="slotA"></div>
+  <div class="slot b" id="slotB"></div>
+
+  <div class="mid">
+    <div class="rope" aria-hidden="true"><div class="knot" id="knot">🪢</div></div>
+    <div class="rows" id="rows"></div>
+    <div class="actions">
+      <button id="fight" class="btn" disabled>Start tug-of-war</button>
+      <p id="verdict" class="verdict" role="status" aria-live="polite">Choose two fighters to begin.</p>
+    </div>
+  </div>
+</section>
+
+<datalist id="names"></datalist>
+<script src="/api/assets/arena.js"></script>
+</body>
+</html>
