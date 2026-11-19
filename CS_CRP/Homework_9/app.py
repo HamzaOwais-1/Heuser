@@ -93,7 +93,7 @@ def api_redirect():
 @app.route("/api/", defaults={"filename": "index.html"})
 @app.route("/api/assets/<path:filename>")
 def api_page(filename):
-    return serve_folder("api", filename)
+    return serve_folder("apipage", filename)
 
 
 # ---------- data (PokeAPI proxy) ----------
